@@ -19,7 +19,9 @@
         "symfony/maker-bundle": "^1.30",
         "symfony/proxy-manager-bridge": "5.2.*",
         "symfony/security-bundle": "5.2.*",
-        "symfony/yaml": "5.2.*"
+        "symfony/webpack-encore-bundle": "^1.11",
+        "symfony/yaml": "5.2.*",
+        "twbs/bootstrap": "5.0.0-beta3"
     },
     "config": {
         "optimize-autoloader": true,
