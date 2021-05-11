@@ -60,25 +60,36 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $credentials;
     }
 
+    /**
+     * @param mixed $credentials
+     * @param UserProviderInterface $userProvider
+     * @return object|UserInterface|null
+     */
+
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+        return $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+    }
+
+    /**
+     * check credentials
+     *
+     * check csrf token is valid
+     * check password is valid
+     *
+     * @param array $credentials
+     * @param UserInterface $user
+     * @return bool
+     */
+
+    public function checkCredentials($credentials, UserInterface $user)
+    {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
-
-        if (!$user) {
-            // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
-        }
-
-        return $user;
-    }
-
-    public function checkCredentials($credentials, UserInterface $user)
-    {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
@@ -90,14 +101,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $credentials['password'];
     }
 
+    /**
+     * What should happen once the user is authenticated?
+     *
+     * @param Request $request
+     * @param TokenInterface $token
+     * @param string $providerKey
+     * @return RedirectResponse
+     */
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
-            return new RedirectResponse($targetPath);
-        }
+        return new RedirectResponse($this->urlGenerator->generate('app_homepage'));
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl()
