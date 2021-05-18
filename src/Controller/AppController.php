@@ -27,4 +27,14 @@ class AppController extends AbstractController
             'user' => $this->getUser()
         ]);
     }
+
+    /**
+     * @Route("/admin", name="admin_page")
+     */
+    public function  admin_p(): \Symfony\Component\HttpFoundation\Response
+    {
+        return $this->render('app/admin.html.twig', [
+            'user' => $this->getUser()
+        ]);
+    }
 }
