@@ -52,27 +52,51 @@
 
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Account {{ app.user.username }}</h6>
-        <div class="media text-muted pt-3">
-            <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <strong class="d-block text-gray-dark">{{ app.user.username }}</strong>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-            </p>
-        </div>
-        <div class="media text-muted pt-3">
-            <img data-src="holder.js/32x32?theme=thumb&bg=e83e8c&fg=e83e8c&size=1" alt="" class="mr-2 rounded">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <strong class="d-block text-gray-dark">{{ app.user.username }}</strong>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-            </p>
-        </div>
-        <div class="media text-muted pt-3">
-            <img data-src="holder.js/32x32?theme=thumb&bg=6f42c1&fg=6f42c1&size=1" alt="" class="mr-2 rounded">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <strong class="d-block text-gray-dark">{{ app.user.username }}</strong>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-            </p>
-        </div>
+        <a href="/add">Dodaj nowy wpis!</a>
+        {% for credential in credentials %}
+            <div class="credential_box">
+                <div class="credential_data_block">
+                    <span>
+                        Email:
+                    </span>
+                    <span>
+                        {{ credential.email }}
+                    </span>
+                </div>
+                <div class="credential_data_block">
+                    <div class="credential_password_data">
+                        <span>
+                        Password:
+                    </span>
+                        <span class="credential_password">
+                        {{ credential.password }}
+                    </span>
+                    </div>
+                    <button type="button" class="credential_button" data-show="hide">Pokaż/Ukryj</button>
+                </div>
+                <div class="credential_data_block">
+                    <span>
+                        Url Address:
+                    </span>
+                    <span>
+                        {{ credential.url_adress }}
+                    </span>
+                </div>
+                <div class="credential_data_block">
+                    <span>
+                        Description:
+                    </span>
+                    <span>
+                        {{ credential.description }}
+                    </span>
+                </div>
+                <form method="post" action="/usun/{{ credential.id }}">
+                    <button type="submit">usuń wpis</button>
+                </form>
+            </div>
+        {% endfor %}
+
+
     </div>
 </main>
 
@@ -85,5 +109,30 @@
 <script src="../../dist/js/bootstrap.min.js"></script>
 <script src="../../assets/js/vendor/holder.min.js"></script>
 <script src="offcanvas.js"></script>
+<script>
+    jQuery(function ($) {
+        $(document).ready(function () {
+            const rows = []
+            $(".credential_box").each(function () {
+                rows.push({
+                    password: $(this).children().children(".credential_password").html(),
+                    item: $(this).children().children(".credential_password"),
+                    button: $(this).children().children(".credential_button")
+                })
+            })
+            rows.forEach(item => {
+                item.item.html("*".repeat(item.password.length));
+                $(item.button).on("click", function(){
+                    if($(this).data("show") == "hide"){
+                        item.item.html(item.password);
+                        $(this).data("show", "show")
+                    }else if($(this).data("show") == "show"){
+                        item.item.html("*".repeat( item.password.length));
+                        $(this).data("show", "hide")
+                }})
+            })
+        })
+    })
+</script>
 </body>
 </html>

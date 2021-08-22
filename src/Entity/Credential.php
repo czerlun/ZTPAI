@@ -37,6 +37,23 @@ class Credential
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $id_user;
+
+    public function getID_user(): ?int
+    {
+        return $this->id_user;
+    }
+
+    public function setID_user(int $id_user): self
+    {
+        $this->id_user = $id_user;
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,7 +61,7 @@ class Credential
 
     public function setID(int $ID): self
     {
-        $this->ID = $ID;
+        $this->id = $ID;
 
         return $this;
     }
@@ -74,6 +91,11 @@ class Credential
     }
 
     public function getUrlAdress(): ?string
+    {
+        return $this->url_adress;
+    }
+
+    public function geturl_adress(): ?string
     {
         return $this->url_adress;
     }
