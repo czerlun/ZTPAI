@@ -1,0 +1,43 @@
+{% extends 'base.auth.html.twig' %}
+
+{% block body %}
+
+    <form class="add_cred" action="/dodaj_konto" method="post" style="margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;" >
+
+        <h1 class="h3 mb-3 font-weight-normal">Dodaj haslo: </h1>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="text" name="email" id="inputEmail" class="form-control" required autofocus aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Password</label>
+            <input type="text" name="password" id="inputPassword" class="form-control" required autofocus aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Url address</label>
+            <input type="text" name="url" id="inputUrl" class="form-control" required autofocus aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">description</label>
+            <input type="text" name="description" id="inputUrl" class="form-control" required autofocus aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        </div>
+
+
+        <button type="submit" class="btn btn-lg btn-primary">Dodaj</button>
+    </form>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="../../assets/js/vendor/popper.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+
+{% endblock %}

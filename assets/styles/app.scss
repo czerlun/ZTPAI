@@ -1,0 +1,51 @@
+body {
+    background-color: lightgray;
+
+    .add-credential-button{
+        margin: 2rem 0;
+    }
+
+    .credential-title{
+        font-size: 1.6rem;
+    }
+
+    .credential_container, .user_container {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #666666;
+
+        .credential_box, .user_box {
+            display: flex;
+
+            .credential_data_block, .user_data_block {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                justify-content: center;
+                align-items: center;
+                padding: 1.5rem 0;
+                margin: 1rem 0;
+                border-left: 1px solid #666666;
+                .credential_password {
+                    word-break: break-word;
+                    text-align: center;
+                }
+            }
+            .credential_data_block:first-child, .user_data_block:first-child  {
+                border-left: none;
+            }
+        }
+
+        .credential_box:first-child, .user_box:first-child {
+
+            .credential_data_block, .user_data_block {
+                background: #121212;
+                color: #FFFFFF;
+                border-left: none;
+            }
+
+        }
+
+    }
+
+}
